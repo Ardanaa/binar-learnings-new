@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- CSS Bootsrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- My CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Boostrap Icon -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <title>Beranda</title>
+</head>
+
+<body>
+    <!-- navbar start -->
+    <!-- Side navigation -->
+    <div class="sidenav text-white">
+        <div class="box mx-auto rounded-2"></div>
+        <div class="side-home text-center mt-4">
+            <i><img src="images/fi_home.png" alt="" srcset=""></i>
+            <p style="font-size: 12px;">Dashboard</p>
+        </div>
+        <div class="side-truck text-center mt-4 fw-bold">
+            <i><img src="images/fi_truck.png" alt="" srcset=""></i>
+            <p style="font-size: 12px;">Cars</p>
+        </div>
+    </div>
+
+    <div class="sidenav-2">
+        <a href="#">CARS</a>
+        <a class="active" href="#">List Cars</a>
+    </div>
+
+    <div class="navbar">
+        <div class="box-2 ms-3 rounded-2"></div>
+        <i class="bi bi-list fs-2" style="margin-right: 350px;"></i>
+        <div class="d-flex">
+            <form class="d-flex" style="margin-right: 30px">
+                <input class=" form-control rounded-0 " type=" search " placeholder=" &#x1F50E; Search " aria-label=" Search ">
+                <button class=" btn btn-outline-primary rounded-0 " type=" submit ">Search</button>
+            </form>
+            <img style="margin-right: 10px;" src="images/User.png" alt=" User ">
+            <p class=" my-auto me-2">Unis Badri</p>
+            <i style=" margin-right: 100px " class="bi bi-chevron-down fs-4 fw-bold my-auto"></i>
+        </div>
+    </div>
+
+    <!-- navbar end -->
+
+
+
+    <!-- Page content -->
+    <div class="main">
+        <div class="container">
+            <p><span class="fw-bold">Cars </span> <i class="bi bi-chevron-right"></i> List Cars</p>
+
+            <div class="d-flex my-2">
+                <h class="fw-bold">List Cars</h>
+                <a href="/cars" type="button" class="btn btn-primary text-white ms-auto rounded"><img src="./images/fi_plus.png" class="pe-3 mb-1">Add New Car</a>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="d-flex">
+                <div>
+                    <button type="button" class="btn listcar">All</button>
+                </div>
+                <div class="ms-4">
+                    <button type="button" class="btn listcar">Small</button>
+                </div>
+                <div class="ms-4">
+                    <button type="button" class="btn listcar">Medium</button>
+                </div>
+                <div class="ms-4">
+                    <button type="button" class="btn listcar">Large</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="container mt-4">
+            <div class="row">
+                <% cars.map((car) => { %>
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="card" style="width: 303px;">
+                            <img src="<%= car.photo %>" class="card-img-top" style="width: 303px; height: 222px; object-fit: cover;" alt="...">
+                            <div class="card-body">
+                                <p class="card-title">
+                                    <%= car.name %>
+                                </p>
+                                <h5 class="card-text fw-bold"> Rp.
+                                    <%= car.price %> /hari</h5>
+                                <p class="card-title">
+                                    <i class="bi bi-clock"></i> Updated at
+                                    <%= car.updatedAt %>
+                                </p>
+                                <div class="row">
+                                    <div class="col">
+                                        <a href="/delete/<%= car.id %>" type="button" class="btn btn-outline-danger delete-button px-4 py-2" data-bs-toggle="modal" data-bs-target="#exampleModal"><img src="./images/Header/fi_trash-2.png" alt="">Delete</a>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-body text-center">
+                                                        <h5 class="fw-bold">Menghapus Data Mobil</h5>
+                                                        <p class="px-5 mx-4" style="font-size: 14px">
+                                                            Setelah dihapus, data mobil tidak dapat dikembalikan. Yakin ingin menghapus?
+                                                        </p>
+                                                    </div>
+                                                    <div class="modal-footer justify-content-center border-top-0">
+                                                        <form method="post" action="http://localhost:2000/deleteCars/<%= car.id %>">
+                                                            <button type="submit" class="btn btn-primary button-allow">
+                                                            YA
+                                                        </button>
+                                                        </form>
+                                                        <button type="button" class="btn btn-outline-primary button-deny" data-bs-dismiss="modal">
+                                                        TIDAK
+                                                    </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="edit" class="col">
+                                        <a href="/update/<%= car.id %>" class="btn btn-edit px-5 py-2"><img src="./images/Header/fi_edit.png" alt="">Edit</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <% }) %>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+    <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js " integrity=" sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM " crossorigin=" anonymous ">
+    </script>
+</body>
+
+</html>

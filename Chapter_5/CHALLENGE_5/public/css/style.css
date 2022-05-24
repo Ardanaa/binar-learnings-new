@@ -1,0 +1,141 @@
+* {
+    font-family: 'IBM Plex Sans', sans-serif;
+}
+
+
+/* The sidebar menu */
+
+.sidenav {
+    height: 100%;
+    /* Full-height: remove this if you want "auto" height */
+    width: 70px;
+    /* Set the width of the sidebar */
+    position: fixed;
+    /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1;
+    /* Stay on top */
+    top: 0;
+    /* Stay at the top */
+    left: 0;
+    background-color: #0D28A6;
+    overflow-x: hidden;
+    /* Disable horizontal scroll */
+    padding-top: 20px;
+}
+
+.sidenav-2 {
+    height: 100%;
+    width: 220px;
+    position: fixed;
+    z-index: 1;
+    top: 70px;
+    left: 70px;
+    background-color: #ffff;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+.navbar {
+    height: 70px;
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 70px;
+    background-color: #ffff;
+    overflow-x: hidden;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.sidenav-2 a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 14px;
+    color: black;
+    display: block;
+}
+
+.sidenav-2 a:hover {
+    background-color: #CFD4ED;
+}
+
+.active {
+    background-color: #CFD4ED;
+}
+
+.box {
+    width: 34px;
+    height: 34px;
+    background-color: #CFD4ED;
+}
+
+.box-2 {
+    width: 100px;
+    height: 34px;
+    background-color: #CFD4ED;
+}
+
+
+/* Style page content */
+
+.main {
+    margin-left: 290px;
+    margin-top: 70px;
+    /* Same as the width of the sidebar */
+    padding: 20px 10px;
+    background-color: #E5E5E5;
+}
+
+.listcar {
+    outline-style: solid;
+    opacity: 50%;
+    outline-color: #0D28A6;
+    color: #0D28A6 !important;
+    background-color: #CFD4ED !important;
+}
+
+.listcar:hover,
+.listcar:focus {
+    opacity: 100% !important;
+    border-color: #0D28A6 !important;
+    outline-style: solid;
+    box-shadow: none !important;
+}
+
+.btn-size {
+    outline-style: solid;
+    outline-color: #0D28A6;
+    color: #0D28A6 !important;
+    background-color: white !important;
+}
+
+.btn-edit {
+    background-color: #5CB85F !important;
+    color: white !important;
+}
+
+.btn-delete {
+    outline-style: solid;
+    outline-color: red !important;
+    color: red !important;
+}
+
+.btn-image {
+    margin-left: 175px;
+}
+
+.btn-save {
+    margin-top: 200px;
+}
+
+
+/* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+    .sidenav a {
+        font-size: 18px;
+    }
+}

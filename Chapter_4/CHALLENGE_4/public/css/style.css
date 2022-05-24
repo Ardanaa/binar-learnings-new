@@ -1,0 +1,159 @@
+* {
+  font-family: Helvetica;
+}
+
+.fs-7 {
+  font-size: 14px;
+}
+
+.btn-success {
+  background-color: #5cb85f;
+}
+
+.btn-info {
+  background-color: #0d28a6;
+}
+
+/* Navbar */
+.btn-info {
+  width: 100px;
+  height: 36px;
+}
+/* Navbar */
+
+/* Hero */
+nav,
+.container-fluid {
+  background-color: #f1f3ff;
+}
+
+.image-car img {
+  padding-top: 10%;
+  width: 103%;
+}
+
+/* Hero */
+
+/* Testimonial */
+.item {
+  width: 95%;
+  margin-left: 3%;
+  background-color: #f1f3ff;
+  border-color: #f1f3ff;
+}
+
+.card-left {
+  width: 30%;
+  margin: 30px 35%;
+  padding-top: 30px;
+}
+
+.card-right {
+  font-size: 12px;
+  padding: 0 30px 30px 30px;
+}
+
+.card-right i {
+  color: gold;
+  text-align: center;
+}
+
+.faq-icon {
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.Testimonial-tittle {
+  text-align: center;
+  padding-top: 50px;
+}
+
+.owl-carousel .testi-body {
+  display: block;
+}
+/* Testimonial */
+
+/* Banner */
+.banner-content {
+  margin-top: 100px;
+  padding: 64px 0 64px 0;
+  border-radius: 13px;
+  background-color: rgba(13, 40, 166, 1);
+}
+/* Banner */
+
+/* Why Us */
+.card-1 {
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+/* Why Us */
+
+/* Desktop Version */
+@media (min-width: 576px) {
+  .hero-text {
+    padding-left: 80px;
+  }
+
+  .image-car img {
+    width: 102%;
+  }
+
+  /* Our Services */
+  .our-service {
+    float: right;
+  }
+  /* Our Services */
+
+  /* Why Us */
+  #why-us .text-center {
+    text-align: left !important;
+  }
+  /* Why Us */
+
+  /* Testimonial */
+  #testimonial h3 {
+    text-align: center;
+    font-weight: bold;
+  }
+
+  #testimonial p {
+    text-align: center;
+    margin-top: 16px;
+    margin-bottom: 40px;
+  }
+
+  .item {
+    background-color: #f1f3ff;
+    border-color: #f1f3ff;
+    width: 100%;
+  }
+
+  .images-testi {
+    float: left;
+    margin-top: 50px;
+    margin-left: 20px;
+  }
+
+  .card-right i {
+    color: gold;
+  }
+
+  .text-img {
+    margin-left: 100px;
+  }
+
+  .owl-carousel .card-body {
+    display: flex;
+  }
+
+  .card-left {
+    width: 50%;
+    height: 50%;
+    margin: 80px 20px 0px 20px;
+  }
+
+  .card-right {
+    margin: 50px 20px;
+  }
+}

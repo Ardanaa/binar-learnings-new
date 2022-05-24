@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- CSS Bootsrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- My CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Boostrap Icon -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <title>Beranda</title>
+</head>
+
+<body>
+    <!-- navbar start -->
+    <!-- Side navigation -->
+    <div class="sidenav text-white">
+        <div class="box mx-auto rounded-2"></div>
+        <div class="side-home text-center mt-4">
+            <i><img src="images/fi_home.png" alt="" srcset=""></i>
+            <p style="font-size: 12px;">Dashboard</p>
+        </div>
+        <div class="side-truck text-center mt-4 fw-bold">
+            <i><img src="images/fi_truck.png" alt="" srcset=""></i>
+            <p style="font-size: 12px;">Cars</p>
+        </div>
+    </div>
+
+    <div class="sidenav-2">
+        <a href="#">CARS</a>
+        <a class="active" href="#">List Cars</a>
+    </div>
+
+    <div class="navbar">
+        <div class="box-2 ms-3 rounded-2"></div>
+        <i class="bi bi-list fs-2" style="margin-right: 350px;"></i>
+        <div class="d-flex">
+            <form class="d-flex" style="margin-right: 30px">
+                <input class=" form-control rounded-0 " type=" search " placeholder=" &#x1F50E; Search " aria-label=" Search ">
+                <button class=" btn btn-outline-primary rounded-0 " type=" submit ">Search</button>
+            </form>
+            <img style="margin-right: 10px;" src=" images/User.png " alt=" User ">
+            <p class=" my-auto me-2">Unis Badri</p>
+            <i style=" margin-right: 100px " class="bi bi-chevron-down fs-4 fw-bold my-auto"></i>
+        </div>
+    </div>
+
+    <!-- navbar end -->
+
+
+
+    <!-- Page content -->
+    <div class="main">
+        <p>
+            <span class="fw-bold">Cars </span>
+            <i class="bi bi-chevron-right"></i>
+            <span class="fw-bold">List Cars </span>
+            <i class="bi bi-chevron-right"></i> Add New Car
+        </p>
+
+        <div id="create">
+            <div class="container">
+                <h5 class="fw-bold pt-4">Add New Car</h5>
+                <form action="http://localhost:2000/cars" class="bg-white" method="post">
+                    <div class="d-flex pt-4">
+                        <label class="form-label ps-4">Nama*</label>
+                        <input type="text" name="name" class="form-control w-50" style="margin-left: 109px;" placeholder="nama mobil">
+                    </div>
+                    <div class="d-flex pt-4">
+                        <label class="form-label ps-4">Sewa Per Hari*</label>
+                        <input type="text" name="price" class="form-control w-50 ms-5" placeholder="Rp 0,-">
+                    </div>
+                    <div class="d-flex pt-4">
+                        <label class="form-label ps-4">Ukuran*</label>
+                        <select name="size" id="disabledSelect" class="form-select w-50" style="margin-left: 100px;" placeholder="ukuran mobil">
+                            <option value="small">Small</option>
+                            <option value="medium">Medium</option>
+                            <option value="large">Large</option>
+                        </select>
+                    </div>
+                    <div class="d-flex pt-4 mb-0">
+                        <label class="form-label ps-4">Foto*</label>
+                        <input type="text" name="photo" class="form-control w-50" style="margin-left: 119px;" placeholder="https://placeimg.com/640/480/any  U+F603">
+                    </div>
+                    <div class="form-text btn-image">File size max. 2MB</div>
+                    <div id="carAdd" class="d-flex btn-save ps-2 pb-2">
+                        <a href="/" class="btn btn-size rounded px-3 py-2">Cancel</a>
+                        <button type="submit" class="btn bg-primary text-white rounded px-3 py-2 ms-4">
+                            Save</a></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+    <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js " integrity=" sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM " crossorigin=" anonymous ">
+    </script>
+</body>
+
+</html>
