@@ -3,9 +3,12 @@ import { Form, Container, Button, Alert } from "react-bootstrap";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
-export default function Login() {
+export default function Register() {
   const navigate = useNavigate();
+
+  const nameField = useRef("");
   const emailField = useRef("");
+  const roleField = useRef("");
   const passwordField = useRef("");
 
   const [errorResponse, setErrorResponse] = useState({
@@ -13,27 +16,25 @@ export default function Login() {
     message: "",
   });
 
-  const onLogin = async (e) => {
+  const onRegister = async (e) => {
     e.preventDefault();
 
     try {
-      const userToLoginPayload = {
+      const userToRegisterPayload = {
+        name: nameField.current.value,
         email: emailField.current.value,
+        role: roleField.current.value,
         password: passwordField.current.value,
       };
 
-      const loginRequest = await axios.post(
-        "http://localhost:2000/auth/login",
-        userToLoginPayload
+      const registerRequest = await axios.post(
+        "http://localhost:2000/auth/register",
+        userToRegisterPayload
       );
 
-      const loginResponse = loginRequest.data;
+      const registerResponse = registerRequest.data;
 
-      if (loginResponse.status) {
-        localStorage.setItem("token", loginResponse.data.token);
-
-        navigate("/");
-      }
+      if (registerResponse.status) navigate("/login");
     } catch (err) {
       console.log(err);
       const response = err.response.data;
@@ -47,8 +48,24 @@ export default function Login() {
 
   return (
     <Container className="my-5">
-      <h1 className="mb-3">Masuk</h1>
-      <Form onSubmit={onLogin}>
+      <h1 className="mb-3">Registrasi</h1>
+      <Form onSubmit={onRegister}>
+        <Form.Group className="mb-3">
+          <Form.Label>Role</Form.Label>
+          <Form.Select ref={roleField}>
+            <option>Pilih Role</option>
+            <option value="admin">Admin</option>
+            <option value="user">User</option>
+          </Form.Select>
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Nama</Form.Label>
+          <Form.Control
+            type="text"
+            ref={nameField}
+            placeholder="Masukkan nama"
+          />
+        </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>Email</Form.Label>
           <Form.Control
@@ -66,13 +83,13 @@ export default function Login() {
           />
         </Form.Group>
         <p>
-          Belum punya akun? Silakan <Link to="/register">Daftar</Link>
+          Sudah punya akun? Silakan <Link to="/login">Login</Link>
         </p>
         {errorResponse.isError && (
           <Alert variant="danger">{errorResponse.message}</Alert>
         )}
         <Button className="w-100" type="submit">
-          Masuk
+          Daftar
         </Button>
       </Form>
     </Container>
