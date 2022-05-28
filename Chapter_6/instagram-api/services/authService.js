@@ -1,37 +1,31 @@
 const usersRepository = require("../repositories/usersRepository");
-const bycrypt = require("bcrypt");
+const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const {
+    OAuth2Client
+} = require("google-auth-library");
 const {
     JWT
 } = require("../lib/const");
+
 const SALT_ROUND = 10;
 
-class authService {
+class AuthService {
     static async register({
         name,
         email,
         password,
-        role,
+        role
     }) {
         try {
-            if (!email) {
-                return {
-                    status: false,
-                    code_status: 400,
-                    message: "email wajib diisi",
-                    data: {
-                        registered_Users: null,
-                    }
-                }
-            };
-
+            // Payload Validation
             if (!name) {
                 return {
                     status: false,
-                    code_status: 400,
-                    message: "name wajib diisi",
+                    status_code: 400,
+                    message: "Nama wajib diisi",
                     data: {
-                        registered_Users: null,
+                        registered_user: null,
                     },
                 };
             }
@@ -39,10 +33,21 @@ class authService {
             if (!role) {
                 return {
                     status: false,
-                    code_status: 400,
-                    message: "role wajib diisi",
+                    status_code: 400,
+                    message: "Role wajib diisi",
                     data: {
-                        registered_Users: null,
+                        registered_user: null,
+                    },
+                };
+            }
+
+            if (!email) {
+                return {
+                    status: false,
+                    status_code: 400,
+                    message: "Email wajib diisi",
+                    data: {
+                        registered_user: null,
                     },
                 };
             }
@@ -50,61 +55,61 @@ class authService {
             if (!password) {
                 return {
                     status: false,
-                    code_status: 400,
-                    message: "password wajib diisi",
+                    status_code: 400,
+                    message: "Password wajib diisi",
                     data: {
-                        registered_Users: null,
+                        registered_user: null,
                     },
                 };
             } else if (password.length < 8) {
                 return {
                     status: false,
-                    code_status: 400,
-                    message: "password minimal 8 karakter",
+                    status_code: 400,
+                    message: "Password minimal 8 karakter",
                     data: {
-                        registered_Users: null,
+                        registered_user: null,
                     },
                 };
             }
 
-            const getByEmail = await usersRepository.getByEmail({
+            const getUserByEmail = await usersRepository.getByEmail({
                 email
             });
 
-            if (getByEmail) {
+            if (getUserByEmail) {
                 return {
                     status: false,
-                    code_status: 400,
-                    message: "email sudah terdaftar",
+                    status_code: 400,
+                    message: "Email sudah digunakan",
                     data: {
-                        registered_Users: null,
+                        registered_user: null,
                     },
                 };
             } else {
-                const hashingPassword = await bycrypt.hash(password, SALT_ROUND);
-                const regsiteredUsers = await usersRepository.register({
+                const hashedPassword = await bcrypt.hash(password, SALT_ROUND);
+                const createdUser = await usersRepository.create({
                     name,
                     email,
-                    password: hashingPassword,
-                    role,
+                    password: hashedPassword,
+                    role
                 });
 
                 return {
                     status: true,
-                    code_status: 201,
-                    message: "Users berhasil registrasi",
+                    status_code: 201,
+                    message: "Berhasil mendaftarkan user",
                     data: {
-                        registered_Users: regsiteredUsers,
+                        registered_user: createdUser,
                     },
                 };
             }
         } catch (err) {
             return {
                 status: false,
-                code_status: 500,
+                status_code: 500,
                 message: err.message,
                 data: {
-                    registered_Users: null,
+                    registered_user: null,
                 },
             };
         }
@@ -115,22 +120,23 @@ class authService {
         password
     }) {
         try {
+            // Payload Validation
             if (!email) {
                 return {
                     status: false,
-                    code_status: 400,
-                    message: "email wajib diisi",
+                    status_code: 400,
+                    message: "Email wajib diisi",
                     data: {
                         registered_user: null,
-                    }
-                }
-            };
+                    },
+                };
+            }
 
             if (!password) {
                 return {
                     status: false,
-                    code_status: 400,
-                    message: "password wajib diisi",
+                    status_code: 400,
+                    message: "Password wajib diisi",
                     data: {
                         registered_user: null,
                     },
@@ -138,42 +144,47 @@ class authService {
             } else if (password.length < 8) {
                 return {
                     status: false,
-                    code_status: 400,
-                    message: "password minimal 8 karakter",
+                    status_code: 400,
+                    message: "Password minimal 8 karakter",
                     data: {
                         registered_user: null,
                     },
                 };
             }
 
-            const getUsers = await usersRepository.getByEmail({
+            const getUser = await usersRepository.getByEmail({
                 email
             });
 
-            if (!getUsers) {
+            if (!getUser) {
                 return {
                     status: false,
-                    code_status: 400,
-                    message: "email belum terdaftar!",
+                    status_code: 404,
+                    message: "Email belum terdaftar",
                     data: {
-                        registered_Users: null,
+                        user: null,
                     },
                 };
             } else {
-                const passwordMatching = await bycrypt.compare(password, getUsers.password);
+                const isPasswordMatch = await bcrypt.compare(
+                    password,
+                    getUser.password
+                );
 
-                if (passwordMatching) {
+                if (isPasswordMatch) {
                     const token = jwt.sign({
-                        id: getUsers.id,
-                        email: getUsers.email,
-                    }, JWT.SECRET, {
-                        expiresIn: JWT.EXPIRED,
-                    });
+                            id: getUser.id,
+                            email: getUser.email,
+                        },
+                        JWT.SECRET, {
+                            expiresIn: JWT.EXPIRED,
+                        }
+                    );
 
                     return {
                         status: true,
-                        code_status: 200,
-                        message: "anda berhasil login",
+                        status_code: 200,
+                        message: "User berhasil login",
                         data: {
                             token,
                         },
@@ -181,10 +192,10 @@ class authService {
                 } else {
                     return {
                         status: false,
-                        code_status: 400,
-                        message: "password anda salah, mohon isi ulang",
+                        status_code: 400,
+                        message: "Password salah",
                         data: {
-                            registered_user: null,
+                            user: null,
                         },
                     };
                 }
@@ -192,14 +203,74 @@ class authService {
         } catch (err) {
             return {
                 status: false,
-                code_status: 500,
+                status_code: 500,
                 message: err.message,
                 data: {
-                    registered_Users: null,
+                    registered_user: null,
+                },
+            };
+        }
+    }
+
+    static async loginGoogle({
+        google_credential: googleCredential
+    }) {
+        try {
+            // Get google user credential
+            const client = new OAuth2Client(
+                "267430728849-02slttimlpr1advqpcfr8i4dfki3l13k.apps.googleusercontent.com"
+            );
+
+            const userInfo = await client.verifyIdToken({
+                idToken: googleCredential,
+                audience: "267430728849-02slttimlpr1advqpcfr8i4dfki3l13k.apps.googleusercontent.com",
+            });
+
+            const {
+                email,
+                name
+            } = userInfo.payload;
+
+            const getUserByEmail = await usersRepository.getByEmail({
+                email
+            });
+
+            if (!getUserByEmail) {
+                await usersRepository.create({
+                    name,
+                    email,
+                    role: "user",
+                });
+            }
+
+            const token = jwt.sign({
+                    id: getUserByEmail.id,
+                    email: getUserByEmail.email,
+                },
+                JWT.SECRET, {
+                    expiresIn: JWT.EXPIRED,
+                }
+            );
+
+            return {
+                status: true,
+                status_code: 200,
+                message: "User berhasil login",
+                data: {
+                    token,
+                },
+            };
+        } catch (err) {
+            return {
+                status: false,
+                status_code: 500,
+                message: err.message,
+                data: {
+                    registered_user: null,
                 },
             };
         }
     }
 }
 
-module.exports = authService;
+module.exports = AuthService;

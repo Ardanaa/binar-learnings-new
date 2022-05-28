@@ -26,7 +26,7 @@ class carsService {
                     code_status: 400,
                     message: "plate wajib diisi",
                     data: {
-                        registered_Users: null,
+                        created_Cars: null,
                     }
                 }
             };
@@ -37,7 +37,7 @@ class carsService {
                     code_status: 400,
                     message: "manufacture wajib diisi",
                     data: {
-                        registered_Users: null,
+                        created_Cars: null,
                     }
                 }
             };
@@ -48,7 +48,7 @@ class carsService {
                     code_status: 400,
                     message: "model wajib diisi",
                     data: {
-                        registered_Users: null,
+                        created_Cars: null,
                     }
                 }
             };
@@ -59,7 +59,7 @@ class carsService {
                     code_status: 400,
                     message: "image wajib diisi",
                     data: {
-                        registered_Users: null,
+                        created_Cars: null,
                     }
                 }
             };
@@ -70,7 +70,7 @@ class carsService {
                     code_status: 400,
                     message: "rentPerDay wajib diisi",
                     data: {
-                        registered_Users: null,
+                        created_Cars: null,
                     }
                 }
             };
@@ -81,7 +81,7 @@ class carsService {
                     code_status: 400,
                     message: "capacity wajib diisi",
                     data: {
-                        registered_Users: null,
+                        created_Cars: null,
                     }
                 }
             };
@@ -92,7 +92,7 @@ class carsService {
                     code_status: 400,
                     message: "description wajib diisi",
                     data: {
-                        registered_Users: null,
+                        created_Cars: null,
                     }
                 }
             };
@@ -103,7 +103,7 @@ class carsService {
                     code_status: 400,
                     message: "transmission wajib diisi",
                     data: {
-                        registered_Users: null,
+                        created_Cars: null,
                     }
                 }
             };
@@ -114,7 +114,7 @@ class carsService {
                     code_status: 400,
                     message: "type wajib diisi",
                     data: {
-                        registered_Users: null,
+                        created_Cars: null,
                     }
                 }
             };
@@ -125,7 +125,7 @@ class carsService {
                     code_status: 400,
                     message: "year wajib diisi",
                     data: {
-                        registered_Users: null,
+                        created_Cars: null,
                     }
                 }
             };
@@ -136,7 +136,7 @@ class carsService {
                     code_status: 400,
                     message: "options wajib diisi",
                     data: {
-                        registered_Users: null,
+                        created_Cars: null,
                     }
                 }
             };
@@ -147,7 +147,7 @@ class carsService {
                     code_status: 400,
                     message: "specs wajib diisi",
                     data: {
-                        registered_Users: null,
+                        created_Cars: null,
                     }
                 }
             };
@@ -158,7 +158,7 @@ class carsService {
                     code_status: 400,
                     message: "availableAt wajib diisi",
                     data: {
-                        registered_Users: null,
+                        created_Cars: null,
                     }
                 }
             };
@@ -169,7 +169,7 @@ class carsService {
                     code_status: 400,
                     message: "driver wajib diisi",
                     data: {
-                        registered_Users: null,
+                        created_Cars: null,
                     }
                 }
             };
@@ -207,7 +207,7 @@ class carsService {
                 code_status: 500,
                 message: err.message,
                 data: {
-                    registered_Users: null,
+                    created_Cars: null,
                 },
             };
         }
@@ -231,7 +231,7 @@ class carsService {
                 code_status: 500,
                 message: err.message,
                 data: {
-                    registered_Users: null,
+                    getCars: null,
                 },
             };
         }
@@ -262,7 +262,7 @@ class carsService {
                     code_status: 400,
                     message: "plate wajib diisi",
                     data: {
-                        registered_Users: null,
+                        updated_Cars: null,
                     }
                 }
             };
@@ -273,7 +273,7 @@ class carsService {
                     code_status: 400,
                     message: "manufacture wajib diisi",
                     data: {
-                        registered_Users: null,
+                        updated_Cars: null,
                     }
                 }
             };
@@ -284,7 +284,7 @@ class carsService {
                     code_status: 400,
                     message: "model wajib diisi",
                     data: {
-                        registered_Users: null,
+                        updated_Cars: null,
                     }
                 }
             };
@@ -295,7 +295,7 @@ class carsService {
                     code_status: 400,
                     message: "image wajib diisi",
                     data: {
-                        registered_Users: null,
+                        updated_Cars: null,
                     }
                 }
             };
@@ -306,7 +306,7 @@ class carsService {
                     code_status: 400,
                     message: "rentPerDay wajib diisi",
                     data: {
-                        registered_Users: null,
+                        updated_Cars: null,
                     }
                 }
             };
@@ -317,7 +317,7 @@ class carsService {
                     code_status: 400,
                     message: "capacity wajib diisi",
                     data: {
-                        registered_Users: null,
+                        updated_Cars: null,
                     }
                 }
             };
@@ -328,7 +328,7 @@ class carsService {
                     code_status: 400,
                     message: "description wajib diisi",
                     data: {
-                        registered_Users: null,
+                        updated_Cars: null,
                     }
                 }
             };
@@ -339,7 +339,7 @@ class carsService {
                     code_status: 400,
                     message: "transmission wajib diisi",
                     data: {
-                        registered_Users: null,
+                        updated_Cars: null,
                     }
                 }
             };
@@ -350,7 +350,7 @@ class carsService {
                     code_status: 400,
                     message: "type wajib diisi",
                     data: {
-                        registered_Users: null,
+                        updated_Cars: null,
                     }
                 }
             };
@@ -361,7 +361,7 @@ class carsService {
                     code_status: 400,
                     message: "year wajib diisi",
                     data: {
-                        registered_Users: null,
+                        updated_Cars: null,
                     }
                 }
             };
@@ -372,7 +372,7 @@ class carsService {
                     code_status: 400,
                     message: "options wajib diisi",
                     data: {
-                        registered_Users: null,
+                        updated_Cars: null,
                     }
                 }
             };
@@ -383,7 +383,7 @@ class carsService {
                     code_status: 400,
                     message: "specs wajib diisi",
                     data: {
-                        registered_Users: null,
+                        updated_Cars: null,
                     }
                 }
             };
@@ -394,7 +394,7 @@ class carsService {
                     code_status: 400,
                     message: "availableAt wajib diisi",
                     data: {
-                        registered_Users: null,
+                        updated_Cars: null,
                     }
                 }
             };
@@ -405,7 +405,7 @@ class carsService {
                     code_status: 400,
                     message: "driver wajib diisi",
                     data: {
-                        registered_Users: null,
+                        updated_Cars: null,
                     }
                 }
             };
@@ -432,7 +432,7 @@ class carsService {
             return {
                 status: true,
                 code_status: 201,
-                message: "cars berhasil dupdate",
+                message: "data cars berhasil dupdate",
                 data: {
                     updatedCars: updatedCars,
                 },
@@ -443,7 +443,7 @@ class carsService {
                 code_status: 500,
                 message: err.message,
                 data: {
-                    registered_Users: null,
+                    updated_Cars: null,
                 },
             };
         }
@@ -473,7 +473,7 @@ class carsService {
                 code_status: 500,
                 message: err.message,
                 data: {
-                    registered_Users: null,
+                    deleted_Cars: null,
                 },
             };
         }
@@ -481,13 +481,15 @@ class carsService {
     }
 
     static async filtered({
-        availableAt,
-        isWithDriver
+        isWithDriver,
+        capacity,
+        availableAt
     }) {
         try {
             const getAllCars = await carsRepository.getAllCars({
-                availableAt,
-                isWithDriver
+                isWithDriver,
+                capacity,
+                availableAt
             });
 
             return {
@@ -504,7 +506,7 @@ class carsService {
                 code_status: 500,
                 message: err.message,
                 data: {
-                    registered_Users: null,
+                    filtered_Cars: null,
                 },
             };
         }

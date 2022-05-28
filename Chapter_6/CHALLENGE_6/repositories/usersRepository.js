@@ -1,33 +1,33 @@
 const {
-    users
+    users,
+    cars
 } = require("../models");
 
 class usersRepository {
-    static async getByEmail({
-        email
-    }) {
-        const getUsersByEmail = await users.findOne({
-            where: {
-                email
-            }
-        })
-        return getUsersByEmail;
-    }
-
-    static async register({
+    static async create({
         name,
         email,
         password,
-        role,
+        role
     }) {
-        const registered_Users = users.create({
-            name,
-            email,
-            password,
-            role,
-        })
+        const createdUser = users.create({
+            name: name,
+            email: email,
+            password: password,
+            role: role,
+        });
+        return createdUser;
+    }
 
-        return registered_Users;
+    static async getByEmail({
+        email
+    }) {
+        const getUser = await users.findOne({
+            where: {
+                email: email
+            }
+        });
+        return getUser;
     }
 }
 

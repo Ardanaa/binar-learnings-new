@@ -1,327 +1,158 @@
 {
-    "swagger": "2.0",
-    "info": {
-        "version": "1.0.0",
-        "title": "Car-Rental",
-        "description": "Challenge Car Rental",
-        "license": {
-            "name": "MIT",
-            "url": "https://opensource.org/licenses/MIT"
-        }
-    },
-    "host": "localhost:8087",
-    "basePath": "/",
-    "tags": [{
-            "name": "Auth",
-            "description": "API for authentication"
-        },
-        {
-            "name": "Cars",
-            "description": "API for managing Cars data"
-        }
-    ],
-    "schemes": ["http"],
-    "consumes": ["application/json"],
-    "produces": ["application/json"],
-    "paths": {
-        "/auth/register": {
-            "post": {
-                "tags": ["Auth"],
-                "summary": "Register Endpoint",
-                "parameters": [{
-                    "name": "register",
-                    "in": "body",
-                    "description": "member to register.",
-                    "schema": {
-                        "$ref": "#/definitions/Register"
-                    }
-                }],
-                "responses": {
-                    "201": {
-                        "description": "Success registering member."
-                    }
-                }
-            }
-        },
-        "/auth/login": {
-            "post": {
-                "tags": ["Auth"],
-                "summary": "Login Endpoint",
-                "parameters": [{
-                    "name": "Login",
-                    "in": "body",
-                    "description": "Login to access resource.",
-                    "schema": {
-                        "$ref": "#/definitions/Login"
-                    }
-                }],
-                "responses": {
-                    "201": {
-                        "description": "Success Login."
-                    }
-                }
-            }
-        },
-        "/auth/register/admin": {
-            "post": {
-                "tags": ["Auth"],
-                "summary": "Register Admin Endpoint",
-                "security": [{
-                    "Bearer": []
-                }],
-                "parameters": [{
-                    "name": "register Admin",
-                    "in": "body",
-                    "description": "Admin to register By SuperAdmin.",
-                    "schema": {
-                        "$ref": "#/definitions/Register"
-                    }
-                }],
-                "responses": {
-                    "201": {
-                        "description": "Success registering Admin.",
-                        "schema": {
-                            "$ref": "#/definitions/Register"
-                        }
-                    }
-                }
-            }
-        },
-        "/auth/me": {
-            "get": {
-                "tags": ["Auth"],
-                "summary": "Get Users in system with token",
-                "security": [{
-                    "Bearer": []
-                }],
-                "responses": {
-                    "200": {
-                        "description": "Success get Users.",
-                        "schema": {
-                            "$ref": "#/definitions/Register"
-                        }
-                    }
-                }
-            }
-        },
-
-        "/cars": {
-            "get": {
-                "tags": ["Cars"],
-                "summary": "Get all Cars in system",
-                "security": [{
-                    "Bearer": []
-                }],
-                "responses": {
-                    "200": {
-                        "description": "Success get Cars.",
-                        "schema": {
-                            "$ref": "#/definitions/ManaggingCars"
-                        }
-                    }
-                }
-            }
-        },
-        "/cars/create": {
-            "post": {
-                "tags": ["Cars"],
-                "summary": "Created Cars Endpoint",
-                "security": [{
-                    "Bearer": []
-                }],
-                "parameters": [{
-                    "name": "created Cars",
-                    "in": "body",
-                    "description": "created data cars",
-                    "schema": {
-                        "$ref": "#/definitions/ManaggingCars"
-                    }
-                }],
-                "responses": {
-                    "201": {
-                        "description": "Success Created Cars."
-                    }
-                }
-            }
-        },
-        "/cars/update/{id}": {
-            "parameters": [{
-                "name": "id",
-                "in": "path",
-                "required": true,
-                "description": "ID of Cars that we want to delete",
-                "type": "string"
-            }],
-            "put": {
-                "tags": ["Cars"],
-                "summary": "Created Cars Endpoint",
-                "security": [{
-                    "Bearer": []
-                }],
-                "parameters": [{
-                    "name": "updated Cars",
-                    "in": "body",
-                    "description": "created data cars",
-                    "schema": {
-                        "$ref": "#/definitions/ManaggingCars"
-                    }
-                }],
-                "responses": {
-                    "201": {
-                        "description": "Success Updated Cars."
-                    }
-                }
-            }
-        },
-        "/cars/delete/{id}": {
-            "delete": {
-                "tags": ["Cars"],
-                "summary": "deleted Cars Endpoint",
-                "security": [{
-                    "Bearer": []
-                }],
-                "parameters": [{
-                    "name": "id",
-                    "in": "path",
-                    "required": true,
-                    "description": "ID of Cars that we want to delete",
-                    "type": "string"
-                }],
-                "responses": {
-                    "201": {
-                        "description": "Success Deleted Cars."
-                    }
-                }
-            }
-        },
-        "/cars/filtered?": {
-            "parameters": [{
-                "name": "availableAt",
-                "in": "query",
-                "required": true,
-                "description": "ID of Cars that we want to delete",
-                "type": "string"
-            }],
-            "get": {
-                "tags": ["Cars"],
-                "summary": "Filtered Cars Endpoint",
-                "parameters": [{
-                    "name": "isWithDriver",
-                    "in": "query",
-                    "required": true,
-                    "type": "boolean",
-                    "description": "filtered data cars",
-                    "schema": {
-                        "$ref": "#/definitions/ManaggingCars"
-                    }
-                }],
-                "responses": {
-                    "200": {
-                        "description": "Success filtered Cars.",
-                        "schema": {
-                            "$ref": "#/definitions/ManaggingCars"
-                        }
-                    }
-                }
-            }
-        }
-    },
-    "definitions": {
-        "Register": {
-            "properties": {
-                "name": {
-                    "type": "string"
-                },
-                "email": {
-                    "type": "string"
-                },
-                "password": {
-                    "type": "string"
-                },
-                "role": {
-                    "type": "string"
-                }
-            }
-        },
-        "Login": {
-            "properties": {
-                "email": {
-                    "type": "string"
-                },
-                "password": {
-                    "type": "string"
-                }
-            }
-        },
-        "ManaggingCars": {
-            "properties": {
-                "plate": {
-                    "type": "string"
-                },
-                "manufacture": {
-                    "type": "string"
-                },
-                "model": {
-                    "type": "string"
-                },
-                "image": {
-                    "type": "string"
-                },
-                "rentPerDay": {
-                    "type": "integer"
-                },
-                "capacity": {
-                    "type": "integer"
-                },
-                "description": {
-                    "type": "string"
-                },
-                "transmission": {
-                    "type": "string"
-                },
-                "type": {
-                    "type": "string"
-                },
-                "year": {
-                    "type": "string"
-                },
-                "options": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "specs": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "availableAt": {
-                    "type": "string"
-                },
-                "isWithDriver": {
-                    "type": "boolean"
-                }
-            }
-        },
-        "filter": {
-            "properties": {
-                "availableAt": {
-                    "type": "string"
-                },
-                "isWithDriver": {
-                    "type": "boolean"
-                }
-            }
-        }
-    },
-    "securityDefinitions": {
-        "Bearer": {
-            "type": "apiKey",
-            "name": "Authorization",
-            "in": "header",
-            "description": "Enter your bearer token in the format **Bearer &lt;token>**"
-        }
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Instagram API",
+    "description": "Instagram API Clone DOCS",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
     }
+  },
+  "host": "localhost:2000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "API for authentication"
+    },
+    {
+      "name": "User",
+      "description": "API for managing users data"
+    }
+  ],
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Register Endpoint",
+        "parameters": [
+          {
+            "name": "register",
+            "in": "body",
+            "description": "User to register.",
+            "schema": {
+              "$ref": "#/definitions/Register"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success registering user.",
+            "schema": {
+              "$ref": "#/definitions/Users"
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "delete": {
+        "tags": ["User"],
+        "summary": "Delete User Endpoint",
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of user that we want to delete",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success deleting user."
+          }
+        }
+      },
+      "put": {
+        "tags": ["User"],
+        "summary": "Update User Endpoint (Example)",
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of user that we want to delete",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success deleting user."
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Register": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        }
+      }
+    },
+    "User": {
+      "required": ["name", "_id", "companies"],
+      "properties": {
+        "_id": {
+          "type": "integer",
+          "uniqueItems": true
+        },
+        "isPublic": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "books": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "amount": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        "companies": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Users": {
+      "type": "array",
+      "$ref": "#/definitions/User"
+    }
+  },
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "description": "Enter your bearer token in the format **Bearer &lt;token>**"
+    }
+  }
 }

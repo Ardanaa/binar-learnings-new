@@ -53,14 +53,21 @@ class carsRepository {
     }
 
     static async getAllCars({
-        availableAt,
-        isWithDriver
+        isWithDriver,
+        capacity,
+        availableAt
     }) {
-        if (isWithDriver && availableAt) {
+        console.log(isWithDriver);
+        console.log(availableAt);
+        console.log(capacity);
+        if (isWithDriver && capacity && availableAt) {
             const filteredCars = await cars.findAll({
                 where: {
                     isWithDriver,
-                    availableAt
+                    capacity,
+                    availableAt: {
+                        [Op.lt]: availableAt,
+                    }
                 }
             });
 

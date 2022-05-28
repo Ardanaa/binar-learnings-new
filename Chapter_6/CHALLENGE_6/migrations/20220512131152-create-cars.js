@@ -21,10 +21,10 @@ module.exports = {
                 type: Sequelize.STRING
             },
             rentPerDay: {
-                type: Sequelize.STRING
+                type: Sequelize.INTEGER
             },
             capacity: {
-                type: Sequelize.STRING
+                type: Sequelize.INTEGER
             },
             description: {
                 type: Sequelize.STRING

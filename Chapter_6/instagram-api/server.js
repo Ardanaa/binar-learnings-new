@@ -1,36 +1,44 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const app = express();
-const PORT = 8087;
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swagger.json");
+const cors = require("cors");
+
+const app = express();
+const PORT = 2000;
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors());
 
-// import controllers
+// Import Controllers
 const authController = require("./controllers/authController");
-const carsController = require("./controllers/carsController");
+const postsController = require("./controllers/postsController");
+const usersController = require("./controllers/usersController");
 
-// improt middlewares
-const middlewares = require("./middlewares/auth");
+// Import Midleware
+const middleware = require("./middlewares/auth");
 
-// define routes auth
-// register member
+// Define Routes
+// Auth
 app.post("/auth/register", authController.register);
-
-// register admin
-app.post("/auth/register/admin", middlewares.authenticate, middlewares.isSuperAdmin, authController.register);
-
 app.post("/auth/login", authController.login);
-app.get("/auth/me", middlewares.authenticate, authController.currentUser);
+app.get("/auth/me", middleware.authenticate, authController.currentUser);
+app.post("/auth/login-google", authController.loginGoogle);
 
-// define routes CRUD
-app.get("/cars", middlewares.authenticate, middlewares.roles, carsController.getCars);
-app.post("/cars/create", middlewares.authenticate, middlewares.roles, carsController.create);
-app.put("/cars/update/:id", middlewares.authenticate, middlewares.roles, carsController.update);
-app.delete("/cars/delete/:id", middlewares.authenticate, middlewares.roles, carsController.deleted);
-app.get("/cars/filtered?", carsController.filtered)
+// Posts
+app.post("/posts", middleware.authenticate, postsController.create);
+app.delete("/posts/:id", middleware.authenticate, postsController.deleteByID);
+app.put("/posts/:id", middleware.authenticate, postsController.updateByID);
+app.get("/api/posts", postsController.getAll);
+
+app.get("/users/:id/posts", usersController.getPostsByID);
+app.delete(
+    "/users/:id",
+    middleware.authenticate,
+    middleware.isAdmin,
+    usersController.deleteByID
+);
 
 // API Documentation
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));

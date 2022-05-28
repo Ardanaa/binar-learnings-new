@@ -2,6 +2,9 @@ const usersRepository = require("../repositories/usersRepository");
 const bycrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const {
+    OAuth2Client
+} = require("google-auth-library");
+const {
     JWT
 } = require("../lib/const");
 const SALT_ROUND = 10;
@@ -196,6 +199,67 @@ class authService {
                 message: err.message,
                 data: {
                     registered_Users: null,
+                },
+            };
+        }
+    }
+
+    static async loginGoogle({
+        google_credential: googleCredential
+    }) {
+        try {
+            // Get google user credential
+            const client = new OAuth2Client(
+                "267430728849-prte8koqqt2kbr2r1gnl8ms8o9vj8h6h.apps.googleusercontent.com"
+            );
+
+            const userInfo = await client.verifyIdToken({
+                idToken: googleCredential,
+                audience: "267430728849-prte8koqqt2kbr2r1gnl8ms8o9vj8h6h.apps.googleusercontent.com",
+            });
+            const {
+                email,
+                name
+            } = userInfo.payload;
+            console.log(userInfo);
+
+            const getUserByEmail = await usersRepository.getByEmail({
+                email
+            });
+
+            if (!getUserByEmail) {
+                await usersRepository.create({
+                    name,
+                    email,
+                    role: "user",
+                });
+            }
+
+            const token = jwt.sign({
+                    id: getUserByEmail.id,
+                    email: getUserByEmail.email,
+                },
+                JWT.SECRET, {
+                    expiresIn: JWT.EXPIRED,
+                }
+            );
+
+            return {
+                status: true,
+                status_code: 200,
+                message: "User Login Succesfully",
+                data: {
+                    token,
+                },
+            };
+        } catch (err) {
+            console.log(err);
+            return {
+                status: false,
+                status_code: 500,
+                message: err.message,
+                data: {
+                    registered_user: null,
                 },
             };
         }

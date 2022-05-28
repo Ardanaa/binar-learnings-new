@@ -4,9 +4,11 @@ const app = express();
 const PORT = 8087;
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swagger.json");
+const cors = require("cors");
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors());
 
 // import controllers
 const authController = require("./controllers/authController");
@@ -21,9 +23,11 @@ app.post("/auth/register", authController.register);
 
 // register admin
 app.post("/auth/register/admin", middlewares.authenticate, middlewares.isSuperAdmin, authController.register);
-
 app.post("/auth/login", authController.login);
 app.get("/auth/me", middlewares.authenticate, authController.currentUser);
+
+// login google
+app.post("/auth/login-google", authController.loginGoogle);
 
 // define routes CRUD
 app.get("/cars", middlewares.authenticate, middlewares.roles, carsController.getCars);

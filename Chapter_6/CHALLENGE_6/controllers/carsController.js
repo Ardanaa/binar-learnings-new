@@ -148,14 +148,14 @@ const deleted = async(req, res) => {
 };
 
 const filtered = async(req, res) => {
-    const { availableAt, isWithDriver } = req.query;
+    const { isWithDriver, capacity, availableAt } = req.query;
 
     const {
         status,
         code_status,
         message,
         data
-    } = await carsService.filtered({ availableAt, isWithDriver });
+    } = await carsService.filtered({ isWithDriver, capacity, availableAt });
 
     res.status(code_status).send({
         status: status,
