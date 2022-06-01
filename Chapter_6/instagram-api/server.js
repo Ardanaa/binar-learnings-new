@@ -3,12 +3,16 @@ const bodyParser = require("body-parser");
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swagger.json");
 const cors = require("cors");
+const path = require("path");
+const upload = require("./utils/fileUpload");
 
 const app = express();
 const PORT = 2000;
 
 app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
 app.use(cors());
 
 // Import Controllers
@@ -27,7 +31,7 @@ app.get("/auth/me", middleware.authenticate, authController.currentUser);
 app.post("/auth/login-google", authController.loginGoogle);
 
 // Posts
-app.post("/posts", middleware.authenticate, postsController.create);
+app.post("/posts", middleware.authenticate, upload.single("picture"), postsController.create);
 app.delete("/posts/:id", middleware.authenticate, postsController.deleteByID);
 app.put("/posts/:id", middleware.authenticate, postsController.updateByID);
 app.get("/api/posts", postsController.getAll);
@@ -39,6 +43,9 @@ app.delete(
     middleware.isAdmin,
     usersController.deleteByID
 );
+
+// Public Storage
+app.use("/public/files", express.static(path.join(__dirname, "/storages")));
 
 // API Documentation
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));

@@ -1,7 +1,7 @@
 const postsRepository = require("../repositories/postsRepository");
 
 class PostsService {
-    static async create({ user_id, title, description }) {
+    static async create({ user_id, title, description, picture }) {
         try {
             if (!title) {
                 return {
@@ -25,10 +25,22 @@ class PostsService {
                 };
             }
 
+            if (!picture) {
+                return {
+                    status: false,
+                    status_code: 400,
+                    message: "Gambar wajib diisi",
+                    data: {
+                        registered_user: null,
+                    },
+                };
+            }
+
             const createdPost = await postsRepository.create({
                 user_id,
                 title,
                 description,
+                picture
             });
 
             return {

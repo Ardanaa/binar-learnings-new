@@ -76,6 +76,7 @@ function Home() {
           <tr>
             <th>Title</th>
             <th>Description</th>
+            <th>Picture</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -84,6 +85,7 @@ function Home() {
             <tr key={p.id}>
               <td>{p.title}</td>
               <td>{p.description}</td>
+              <td><img className="w-25" src={`http://localhost:2000/public/files/${p.picture}`}/></td>
               <td>
                 <Link to={`/update/${p.id}`}>
                   <Button variant="warning">Edit</Button>

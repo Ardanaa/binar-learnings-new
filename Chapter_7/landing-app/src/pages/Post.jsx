@@ -7,6 +7,7 @@ export default function Post() {
   const navigate = useNavigate();
   const titleField = useRef("");
   const descriptionField = useRef("");
+  const [pictureField, setPictureField] = useState();
 
   const [errorResponse, setErrorResponse] = useState({
     isError: false,
@@ -19,10 +20,11 @@ export default function Post() {
     try {
       const token = localStorage.getItem("token");
 
-      const postPayload = {
-        title: titleField.current.value,
-        description: descriptionField.current.value,
-      };
+      const postPayload = new FormData();
+
+      postPayload.append("title", titleField.current.value);
+      postPayload.append("description", descriptionField.current.value);
+      postPayload.append("picture", pictureField);
 
       const postRequest = await axios.post(
         "http://localhost:2000/posts",
@@ -30,8 +32,23 @@ export default function Post() {
         {
           headers: {
             Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
           },
         }
+
+      // const postPayload = {
+      //   title: titleField.current.value,
+      //   description: descriptionField.current.value,
+      // };
+
+      // const postRequest = await axios.post(
+      //   "http://localhost:2000/posts",
+      //   postPayload,
+      //   {
+      //     headers: {
+      //       Authorization: `Bearer ${token}`,
+      //     },
+      //   }
       );
 
       const postResponse = postRequest.data;
@@ -70,6 +87,13 @@ export default function Post() {
             placeholder="Masukkan Deskripsi"
           />
         </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Picture</Form.Label>
+          <Form.Control
+            type="file"
+            onChange={(e) => setPictureField(e.target.files[0])}
+          />
+        </Form.Group>
         {errorResponse.isError && (
           <Alert variant="danger">{errorResponse.message}</Alert>
         )}
@@ -77,7 +101,7 @@ export default function Post() {
           Post
         </Button>
       </Form>
-      <Link to="/home">
+      <Link to="/">
         <Button className="mt-3" variant="success">Go to home page</Button>
       </Link>
     </Container>
