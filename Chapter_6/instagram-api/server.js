@@ -33,8 +33,10 @@ app.post("/auth/login-google", authController.loginGoogle);
 // Posts
 app.post("/posts", middleware.authenticate, upload.single("picture"), postsController.create);
 app.delete("/posts/:id", middleware.authenticate, postsController.deleteByID);
-app.put("/posts/:id", middleware.authenticate, postsController.updateByID);
+app.put("/posts/:id", middleware.authenticate, upload.single("picture"), postsController.updateByID);
+
 app.get("/api/posts", postsController.getAll);
+app.get('/api/posts/:id', postsController.getById);
 
 app.get("/users/:id/posts", usersController.getPostsByID);
 app.delete(

@@ -7,7 +7,7 @@ class PostsService {
                 return {
                     status: false,
                     status_code: 400,
-                    message: "Password wajib diisi",
+                    message: "Tittle wajib diisi",
                     data: {
                         registered_user: null,
                     },
@@ -102,7 +102,7 @@ class PostsService {
         }
     }
 
-    static async updateByID({ id, user_id, title, description }) {
+    static async updateByID({ id, user_id, title, description, picture }) {
         try {
             const getPost = await postsRepository.getByID({ id });
 
@@ -111,6 +111,7 @@ class PostsService {
                     id,
                     title,
                     description,
+                    picture,
                 });
 
                 return {
@@ -142,6 +143,7 @@ class PostsService {
             };
         }
     }
+
     static async getAll() {
         const getAll = await postsRepository.getAll();
 
@@ -151,6 +153,22 @@ class PostsService {
             message: "Posts successfully loaded",
             data: {
                 posts: getAll,
+            },
+        };
+    }
+
+    static async getById({
+        id,
+    }) {
+        const getById = await postsRepository.getByID({
+            id,
+        });
+        return {
+            status: true,
+            status_code: 200,
+            message: "success get data",
+            data: {
+                getdata: getById,
             },
         };
     }

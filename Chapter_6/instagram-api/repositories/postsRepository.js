@@ -1,7 +1,14 @@
-const { Post } = require("../models");
+const {
+    Post
+} = require("../models");
 
 class PostsRepository {
-    static async create({ user_id, title, description, picture }) {
+    static async create({
+        user_id,
+        title,
+        description,
+        picture
+    }) {
         const createdPost = Post.create({
             user_id,
             title,
@@ -12,25 +19,47 @@ class PostsRepository {
         return createdPost;
     }
 
-    static async getByID({ id }) {
-        const getPost = await Post.findOne({ where: { id } });
+    static async getByID({
+        id
+    }) {
+        const getPost = await Post.findOne({
+            where: {
+                id
+            }
+        });
 
         return getPost;
     }
 
-    static async deleteByID({ id }) {
-        const deletePost = await Post.destroy({ where: { id } });
+    static async deleteByID({
+        id
+    }) {
+        const deletePost = await Post.destroy({
+            where: {
+                id
+            }
+        });
 
         return deletePost;
     }
 
-    static async updateByID({ id, title, description }) {
-        const deletePost = await Post.update({
+    static async updateByID({
+        id,
+        title,
+        description,
+        picture,
+    }) {
+        const updatePost = await Post.update({
             title,
             description,
-        }, { where: { id } });
+            picture,
+        }, {
+            where: {
+                id
+            }
+        });
 
-        return deletePost;
+        return updatePost;
     }
 
     static async getAll() {

@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Form, Container, Button, Alert } from "react-bootstrap";
+import { Form, Container, Button, Alert, Card } from "react-bootstrap";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { GoogleOAuthProvider } from "@react-oauth/google";
@@ -47,69 +47,79 @@ export default function Login() {
     }
   };
 
-    const onLoginGoogleSuccess = async (credentialResponse) => {
-      try {
-        const userToLoginPayload = {
-          google_credential: credentialResponse.credential,
-        };
-  
-        const loginGoogleRequest = await axios.post(
-          "http://localhost:2000/auth/login-google",
-          userToLoginPayload
-        );
-  
-        const loginGoogleResponse = loginGoogleRequest.data;
-  
-        if (loginGoogleResponse.status) {
-          localStorage.setItem("token", loginGoogleResponse.data.token);
-  
-          navigate("/");
-        }
-      } catch (err) {
-        console.log(err);
+  const onLoginGoogleSuccess = async (credentialResponse) => {
+    try {
+      const userToLoginPayload = {
+        google_credential: credentialResponse.credential,
+      };
+
+      const loginGoogleRequest = await axios.post(
+        "http://localhost:2000/auth/login-google",
+        userToLoginPayload
+      );
+
+      const loginGoogleResponse = loginGoogleRequest.data;
+
+      if (loginGoogleResponse.status) {
+        localStorage.setItem("token", loginGoogleResponse.data.token);
+
+        navigate("/");
       }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
-    <Container className="my-5">
-      <h1 className="mb-3">Masuk</h1>
-      <Form onSubmit={onLogin}>
-        <Form.Group className="mb-3">
-          <Form.Label>Email</Form.Label>
-          <Form.Control
-            type="text"
-            ref={emailField}
-            placeholder="Masukkan Email"
-          />
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            ref={passwordField}
-            placeholder="Masukkan Password"
-          />
-        </Form.Group>
-        <div className="my-3">
-          <GoogleOAuthProvider clientId="267430728849-02slttimlpr1advqpcfr8i4dfki3l13k.apps.googleusercontent.com">
-            <GoogleLogin
-              onSuccess={onLoginGoogleSuccess}
-              onError={() => {
-                console.log("Login Failed");
-              }}
-            />
-          </GoogleOAuthProvider>
-        </div>
-        <p>
-          Belum punya akun? Silakan <Link to="/register">Daftar</Link>
-        </p>
-        {errorResponse.isError && (
-          <Alert variant="danger">{errorResponse.message}</Alert>
-        )}
-        <Button className="w-100" type="submit">
-          Masuk
-        </Button>
-      </Form>
+    <div className="background">
+    <Container className="py-5 w-100 text-white">
+      <Card className="text-center mx-auto" style={{width: "400px", backgroundColor: "#141414"}}>
+        <Card.Body>
+          <h1 className="mb-3">N̴̘̏ơ̴͚t̷̢̊e̴̠͋ ̴̱̌T̴̪̍o̶͎̾d̵̰̒a̶̤͠y̴̦͒.̶̠̽</h1>
+          <Form onSubmit={onLogin} >
+            <Form.Group className="mb-3">
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                type="text"
+                ref={emailField}
+                placeholder="Masukkan Email"
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type="password"
+                ref={passwordField}
+                placeholder="Masukkan Password"
+              />
+            </Form.Group>
+            <Button className="w-100" type="submit">
+              Masuk
+            </Button>
+            <div className="my-3">
+              <GoogleOAuthProvider clientId="267430728849-02slttimlpr1advqpcfr8i4dfki3l13k.apps.googleusercontent.com">
+                <GoogleLogin
+                  onSuccess={onLoginGoogleSuccess}
+                  onError={() => {
+                    console.log("Login Failed");
+                  }}
+                />
+              </GoogleOAuthProvider>
+            </div>
+            {errorResponse.isError && (
+              <Alert variant="danger">{errorResponse.message}</Alert>
+            )}
+          </Form>
+        </Card.Body>
+      </Card>
+      <Card className="mx-auto mt-2 text-center" style={{width: "400px", backgroundColor: "#141414"}}>
+        <Card.Body>
+          <p>
+            Belum punya akun? Silakan <Link to="/register">Daftar</Link>
+          </p>
+        </Card.Body>
+      </Card>
     </Container>
+    </div>
   );
 }
